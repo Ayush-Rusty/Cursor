@@ -1,13 +1,26 @@
-import { ModeToggle } from "@/components/mode-toggle";
-import {Button} from "@/components/ui/button"
+"use client";
+
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
+  const projects = useQuery(api.project.get);
+  const createProject = useMutation(api.project.create);
+
   return (
-    <div className="text-blue font-bold ">
-      <Button>
-      something went wrong
+    <div className="flex flex-col gap-2 p-4">
+      <Button onClick={()=>createProject({
+        name:"New Project"
+      })}>
+          Add New
       </Button>
-      <ModeToggle/>
+      {projects?.map((project) => (
+        <div className="border rounded p-2 flex flex-col" key={project._id}>
+          <p>{project.name}</p>
+          <p>{project.ownerId}</p>
+        </div>
+      ))}
     </div>
   );
 }
