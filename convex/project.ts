@@ -20,7 +20,8 @@ export const create=mutation({
     }
 })
 
-export const getPartial=query({
+
+export const get=query({
     args:{
         limit:v.number(),
     },
@@ -29,5 +30,16 @@ export const getPartial=query({
         return await ctx.db.query("projects").withIndex("by_owner",(q)=>q.eq("ownerId",identity.subject)).take(args.limit);
     }
 })
+export const getPartial=query({
+    args:{
+        
+    },
+    handler:async(ctx)=>{
+
+        const identity=await verifyAuth(ctx)
+        return await ctx.db.query("projects").withIndex("by_owner",(q)=>q.eq("ownerId",identity.subject)).collect();
+    }
+})
+
 
 
