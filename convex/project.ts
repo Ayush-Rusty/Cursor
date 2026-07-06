@@ -31,9 +31,6 @@ export const get=query({
     }
 })
 export const getPartial=query({
-    args:{
-        
-    },
     handler:async(ctx)=>{
 
         const identity=await verifyAuth(ctx)

@@ -8,9 +8,9 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/src/components/ui/item";
+} from "@/components/ui/item";
 import { SignInButton } from "@clerk/nextjs";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export const UnauthenticatedView = () => {
   return (
