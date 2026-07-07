@@ -4,6 +4,10 @@ import {api} from "../../../../convex/_generated/api"
 import { Id } from "convex/_generated/dataModel";
 
 
+export const useProject=(projectId:Id<"projects">)=>{
+    return useQuery(api.project.getById,{id:projectId})
+}
+
 export const UseProjects=()=>{
     return useQuery(api.project.get,{limit:10})
 }
