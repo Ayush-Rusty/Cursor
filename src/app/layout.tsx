@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import {Providers} from "@/components/provider"
+import { Providers } from "@/components/providers";
+import { Toaster } from "@/components/ui/sonner";
+import "./globals.css"
 
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -26,18 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-mono", jetbrainsMono.variable)}
-    >
-      <body className="min-h-full flex flex-col">
-        
-            <Providers>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn("antialiased", inter.variable, plexMono.variable)}
+      >
+        <Providers>
           {children}
-            </Providers>
-       
-        </body>
+          <Toaster />
+        </Providers>
+      </body>
     </html>
   );
 }
