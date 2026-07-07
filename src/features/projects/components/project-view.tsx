@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
 import {ProjectList} from "@/features/projects/components/project-list"
+import { useEffect, useState } from "react";
+import { ProjectsCommandsDialog } from "./projects-command-dialog";
 
 
 
@@ -19,8 +21,33 @@ const font = Poppins({
 
 
 export const ProjectView = () => {
+
+
+  const [commandDialogOpen,setCommandDialogOpen]=useState(false);
+  
+  useEffect(()=>{
+    const handleKeyDown=(e:KeyboardEvent)=>{
+      if(e.metaKey||e.ctrlKey){
+        if(e.key==="k"){
+          e.preventDefault();
+          setCommandDialogOpen(true)
+        }
+      }
+    }
+
+    document.addEventListener("keydown",handleKeyDown)
+    return ()=>document.removeEventListener("keydown",handleKeyDown)
+  },[])
+
+  
+
+
   return(
     <>
+      <ProjectsCommandsDialog
+        open={commandDialogOpen}
+        onOpenChange={setCommandDialogOpen}
+      />
         <div className="min-h-screen bg-sidebar flex flex-col items-center justify-center p-6 md:p-16">
         <div className="w-full max-w-sm mx-auto flex flex-col gap-4 items-center">
 
@@ -76,7 +103,7 @@ export const ProjectView = () => {
               </Button>
             </div>
 
-            <ProjectList onViewAll={() => {}} />
+            <ProjectList onViewAll={() => setCommandDialogOpen(true)} />
 
           </div>
 
