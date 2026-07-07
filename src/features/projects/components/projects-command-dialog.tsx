@@ -19,6 +19,25 @@ interface ProjectsCommandsDialogProps{
     onOpenChange:(open:boolean)=>void;
 }
 
+
+const getProjectIcon = (project: Doc<"projects">) => {
+  if (project.importStatus === "completed") {
+    return <FaGithub className="size-3.5 text-muted-foreground" />
+}
+
+  if (project.importStatus === "failed") {
+    return <AlertCircleIcon className="size-3.5 text-muted-foreground" />;
+  }
+
+  if (project.importStatus === "importing") {
+    return (
+      <Loader2Icon className="size-3.5 text-muted-foreground animate-spin" />
+    );
+  }
+
+  return <GlobeIcon className="size-3.5 text-muted-foreground" />;
+}
+
 export const ProjectsCommandsDialog=({open,onOpenChange}:ProjectsCommandsDialogProps)=>{
     const router=useRouter();
     const projects=useProjects();
@@ -28,5 +47,5 @@ export const ProjectsCommandsDialog=({open,onOpenChange}:ProjectsCommandsDialogP
         onOpenChange(false);
     }
 
-    
+
 }
